@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Checker App</title>
+  <style>
+    * {
+      color: #fff;
+      background-color: rgb(20, 19, 19);
+      font-size: 1.5em;
+      font: 30px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+    }
+
+    .password-input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1.5em;
+    }
+
+    .suggestions {
+      margin-top: 10px;
+      color: #dadada;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Password Checker</h1>
+  <input type="password" id="passwordInput" class="password-input" placeholder="Enter your password">
+  <div id="suggestions" class="suggestions"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
