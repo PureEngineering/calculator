@@ -1,0 +1,135 @@
+<html><head>
+<title>Cookie Clicker: The Ultimate Productivity Enhancer</title><style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0e6d2;
+    color: #4e3f30;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    color: #8b4513;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  #cookie {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  #cookie:active {
+    transform: scale(0.95);
+  }
+  #counter {
+    font-size: 2em;
+    margin: 20px 0;
+  }
+  #cps {
+    font-size: 1.2em;
+    color: #6b563f;
+  }
+  #upgrades {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .upgrade {
+    background-color: #d2b48c;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .upgrade:hover {
+    background-color: #c19a6b;
+  }
+  #productivity-boost {
+    background-color: #ffd700;
+    color: #4e3f30;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+</style></head><body>
+  <h1>Cookie Clicker: The Ultimate Productivity Enhancer</h1>
+  <div id="productivity-boost">Your productivity is skyrocketing! Keep clicking!</div>
+  <img id="cookie" src="cookie.png" alt="A delicious chocolate chip cookie" width="200" height="200" onclick="clickCookie()">
+  <div id="counter">0 cookies</div>
+  <div id="cps">0 cookies per second</div>
+  <div id="upgrades">
+    <button class="upgrade" onclick="buyUpgrade('cursor')">Buy Cursor (10 cookies)</button>
+    <button class="upgrade" onclick="buyUpgrade('grandma')">Hire Grandma (100 cookies)</button>
+    <button class="upgrade" onclick="buyUpgrade('farm')">Build Farm (1000 cookies)</button>
+    <button class="upgrade" onclick="buyUpgrade('mine')">Open Mine (10000 cookies)</button>
+  </div>
+
+  <script>
+    let cookies = 0;
+    let cps = 0;
+    let upgrades = {
+      cursor: { count: 0, cps: 0.1, cost: 10 },
+      grandma: { count: 0, cps: 1, cost: 100 },
+      farm: { count: 0, cps: 8, cost: 1000 },
+      mine: { count: 0, cps: 47, cost: 10000 }
+    };
+
+    function clickCookie() {
+      cookies++;
+      updateCounter();
+    }
+
+    function buyUpgrade(type) {
+      if (cookies >= upgrades[type].cost) {
+        cookies -= upgrades[type].cost;
+        upgrades[type].count++;
+        upgrades[type].cost = Math.ceil(upgrades[type].cost * 1.15);
+        cps += upgrades[type].cps;
+        updateCounter();
+        updateUpgradeButtons();
+      }
+    }
+
+    function updateCounter() {
+      document.getElementById('counter').innerText = Math.floor(cookies) + ' cookies';
+      document.getElementById('cps').innerText = cps.toFixed(1) + ' cookies per second';
+    }
+
+    function updateUpgradeButtons() {
+      for (let type in upgrades) {
+        let button = document.querySelector(`button[onclick="buyUpgrade('${type}')"]`);
+        button.innerText = `Buy ${type.charAt(0).toUpperCase() + type.slice(1)} (${Math.ceil(upgrades[type].cost)} cookies)`;
+      }
+    }
+
+    setInterval(() => {
+      cookies += cps / 10;
+      updateCounter();
+    }, 100);
+
+    setInterval(() => {
+      let messages = [
+        "You're on a roll! Your productivity is through the roof!",
+        "Each cookie click brings you closer to success!",
+        "Who knew clicking cookies could be so rewarding?",
+        "Your focus is unmatched! Keep up the great work!",
+        "You're mastering the art of cookie productivity!"
+      ];
+      document.getElementById('productivity-boost').innerText = messages[Math.floor(Math.random() * messages.length)];
+    }, 10000);
+  </script>
+
+  <p>Welcome to Cookie Clicker, the revolutionary productivity tool that's taking the corporate world by storm! Our cutting-edge research has shown that clicking virtual cookies dramatically increases focus, creativity, and overall work output. As you accumulate more cookies, you'll feel your productivity soar to new heights!</p>
+
+  <p>Upgrade your cookie-clicking empire by investing in cursors, hiring grandmas, building farms, and opening mines. Each upgrade represents a new level of efficiency in your workflow. Remember, the more cookies you have, the more productive you become!</p>
+
+  <p>Don't forget to share your cookie count with colleagues and compete for the title of Most Productive Cookie Clicker in your office. Remember, in the world of Cookie Clicker, procrastination is just another word for success!</p>
+
+</body></html>
