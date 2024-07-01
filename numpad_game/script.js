@@ -1,5 +1,5 @@
-const lightTheme = "styles/light.css";
-const darkTheme = "styles/dark.css";
+// const lightTheme = "styles/light.css";
+// const darkTheme = "styles/dark.css";
 
 const targetElement = document.getElementById('target');
 const userInputElement = document.getElementById('user-input');
@@ -10,7 +10,6 @@ let userTyped = '';
 let timer = null;
 let max_number = 10;
 let score = 0;
-
 let top_score = 0;
 
 
@@ -53,19 +52,22 @@ function startTimer() {
         if (top_score < score) {
             top_score = score;
         }
-        if (max_number >= 1000) {
-            score -= 2;
-            max_number *= .001;
-        }
 
         messageElement.textContent = 'Time\'s up!' + ' Score: ' + score + ' Top Score: ' + top_score;
+        
+        score = 0
+        max_number = 10;
         generateNumber();
-        clearTimeout(timer);
-        startTimer();
+        if(score != 0)
+        {
+            clearTimeout(timer);
+            startTimer();
+        }
     }, 5000);
 
 }
 
 generateNumber();
 userInputElement.addEventListener('keyup', checkInput);
+clearTimeout(timer);
 startTimer();
