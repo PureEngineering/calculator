@@ -1,0 +1,79 @@
+<html><head><base href="https://websim.ai"/>
+<title>Matrix Code Display - WebSim</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    font-family: 'Courier New', monospace;
+  }
+  #canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let fontSize = 16;
+let columns;
+let rainDrops;
+let animationId;
+
+const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲ';
+const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const nums = '0123456789';
+
+const alphabet = katakana + latin + nums;
+
+function initializeMatrix() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  columns = Math.floor(canvas.width / fontSize);
+  rainDrops = Array(columns).fill(1);
+}
+
+function draw() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  ctx.fillStyle = '#0F0';
+  ctx.font = fontSize + 'px monospace';
+
+  for(let i = 0; i < rainDrops.length; i++)
+  {
+    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+    ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+    
+    if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+      rainDrops[i] = 0;
+    }
+    rainDrops[i]++;
+  }
+  
+  animationId = requestAnimationFrame(draw);
+}
+
+function startAnimation() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+  }
+  initializeMatrix();
+  draw();
+}
+
+startAnimation();
+
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(startAnimation, 250);
+});
+</script>
+</body></html>
